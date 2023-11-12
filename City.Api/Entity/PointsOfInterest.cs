@@ -14,12 +14,13 @@ namespace City.Api.Entity
         public string Name { get; set; }
         [MaxLength(200)]
         public string Description { get; set; }
-        public Citie? City { get; set; }
+        public Citie City { get; set; }
         public int CityId { get; set; }
 
         public PointsOfInterest(string name)
         {
             Name = name;
+            
         }
     }
 }

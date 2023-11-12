@@ -7,19 +7,15 @@ using System.Text.Json;
 
 namespace City.Api.Controllers
 {
-    [Route("api/cities")]
+    [Route("api/v{version:apiVersion}/cities")]
     [Authorize]
+    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
     [ApiController]
     public class CitiesController : ControllerBase
     {
 
-        //private readonly CitiesDtoStore _citiesDtoStore;
-
-        //public CitiesController(CitiesDtoStore citiesDtoStore)
-        //{
-        //    _citiesDtoStore = citiesDtoStore;
-        //}
-
+       
         private readonly ICityRepository _cityRepo;
         private readonly IMapper _mapper;
         const int maxPageSize = 20;
@@ -49,8 +45,16 @@ namespace City.Api.Controllers
         }
 
 
+        /// <summary>
+        /// Get a city by id
+        /// </summary>
+        /// <param name="id"> The id of the city to get</param>
+        /// <param name="includePointOfInterest">Whether or not to include the point of interest</param>
+        /// <returns>An IActionResult</returns>
+        /// <response code ="200">Return the requested city</response>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCities(int id, bool includePointOfInterest = false)
         {
