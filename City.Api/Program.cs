@@ -19,6 +19,7 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.File("log/cityInfo.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 //builder.Logging.ClearProviders();  //Access to the logger. Clear all log.
